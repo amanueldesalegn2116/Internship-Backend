@@ -37,8 +37,10 @@ An enterprise-grade RESTful API for managing internship applications built with 
 4. **Dashboard Summary Analytics**:
    - `GET /api/dashboard/summary`: Aggregates active applicant count, distribution by status (`Pending`, `Shortlisted`, `Accepted`, `Rejected`), distribution by track, and recent submissions.
 
-5. **API Documentation**:
-   - Interactive Swagger UI available at `http://localhost:3000/api/docs`.
+5. **API & Interactive Documentation Routes**:
+   - Root Info: `GET /` returns API status, health link, and documentation URL.
+   - Health Check: `GET /api/health` returns `OK` health status and timestamp.
+   - Interactive Swagger UI: Available at both `http://localhost:3000/docs` and `http://localhost:3000/api/docs`.
 
 ---
 
