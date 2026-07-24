@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // ─── Global prefix ──────────────────────────────────────────────────────
   app.setGlobalPrefix('api', {
-    exclude: ['/', 'docs'],
+    exclude: ['/', 'api', 'docs'],
   });
 
   // ─── CORS ───────────────────────────────────────────────────────────────

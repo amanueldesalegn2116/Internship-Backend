@@ -18,6 +18,18 @@ export class AppController {
   }
 
   @Public()
+  @Get('api')
+  getApiInfo() {
+    return {
+      name: 'Internship Applicant Management API',
+      status: 'OK',
+      documentation: '/docs',
+      health: '/api/health',
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  @Public()
   @Get('health')
   getHealth(): { status: string; timestamp: string } {
     return { status: 'OK', timestamp: new Date().toISOString() };
