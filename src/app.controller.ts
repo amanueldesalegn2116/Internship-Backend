@@ -2,12 +2,23 @@ import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Public } from './common/decorators/public.decorator';
 
-@ApiTags('Health')
+@ApiTags('Health & Info')
 @Controller()
 export class AppController {
   @Public()
+  @Get()
+  getRoot() {
+    return {
+      name: 'Internship Applicant Management API',
+      status: 'OK',
+      documentation: '/docs',
+      health: '/api/health',
+      timestamp: new Date().toISOString(),
+    };
+  }
+
+  @Public()
   @Get('health')
-  @ApiOperation({ summary: 'Health check', description: 'Returns OK if the API is running.' })
   getHealth(): { status: string; timestamp: string } {
     return { status: 'OK', timestamp: new Date().toISOString() };
   }

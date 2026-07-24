@@ -7,7 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // ─── Global prefix ──────────────────────────────────────────────────────
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api', {
+    exclude: ['/', 'docs'],
+  });
 
   // ─── CORS ───────────────────────────────────────────────────────────────
   app.enableCors({
@@ -55,13 +57,17 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document, {
+  const swaggerOptions = {
     swaggerOptions: {
       persistAuthorization: true,
       tagsSorter: 'alpha',
       operationsSorter: 'alpha',
     },
-  });
+  };
+
+  // Serve Swagger UI at both /docs and /api/docs for maximum compatibility
+  SwaggerModule.setup('docs', app, document, swaggerOptions);
+  SwaggerModule.setup('api/docs', app, document, swaggerOptions);
 
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
