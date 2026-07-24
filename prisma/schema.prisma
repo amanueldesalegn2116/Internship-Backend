@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ApplicationStatus {
+  Pending
+  Shortlisted
+  Accepted
+  Rejected
+}
+
+enum InternshipTrack {
+  Frontend_Development
+  Backend_Development
+  Mobile_Development
+  UI_UX_Design
+  Data_Analytics
+}
+
+model Administrator {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("administrators")
+}
+
+model Applicant {
+  id          String            @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String            @unique
+  phone       String?
+  track       InternshipTrack
+  status      ApplicationStatus @default(Pending)
+  resumeUrl   String?
+  coverLetter String?
+  notes       String?
+  deletedAt   DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([track])
+  @@index([deletedAt])
+  @@map("applicants")
+}
